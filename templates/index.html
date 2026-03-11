@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>Pet Breed AI Explorer</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>Pet Breed AI Explorer</h1>
+
+<select id="breed">
+<option>Golden Retriever</option>
+<option>German Shepherd</option>
+<option>Siberian Husky</option>
+<option>Persian Cat</option>
+</select>
+
+<button onclick="loadPet()">Generate</button>
+
+<h3>Dog Description</h3>
+
+<div class="result-box">
+<p id="dogdescription"></p>
+</div>
+
+<h3>Recent Searches</h3>
+
+<ul>
+{% for item in memory %}
+<li>{{ item }}</li>
+{% endfor %}
+</ul>
+
+<hr>
+
+<h2>Search Dog Breed</h2>
+
+<input id="dogbreed" placeholder="Enter dog breed e.g. Labrador">
+
+<button onclick="searchDog()">Search</button>
+
+<h3>Results</h3>
+
+<div class="result-box">
+<p id="dogdescription1"></p>
+</div>
+
+<hr>
+
+<h2>Math Tool</h2>
+
+<input id="expression" placeholder="Enter expression e.g. 25*48">
+
+<button onclick="solveMath()">Calculate</button>
+
+<h3>Result</h3>
+
+<div class="result-box">
+<p id="result"></p>
+</div>
+
+<h3>Explanation</h3>
+
+<div class="result-box">
+<p id="explanation"></p>
+</div>
+
+</div>
+
+
+<script>
+
+async function loadPet(){
+
+let breed = document.getElementById("breed").value
+
+let res = await fetch(`/pet?breed=${breed}`)
+
+let data = await res.json()
+
+document.getElementById("dogdescription").innerText = data.description
+
+}
+
+async function searchDog(){
+
+let breed = document.getElementById("dogbreed").value
+
+let res = await fetch(`/dog?breed=${breed}`)
+
+let data = await res.json()
+
+document.getElementById("dogdescription1").innerText = data.description
+
+}
+
+async function solveMath(){
+
+let exp = document.getElementById("expression").value
+
+let res = await fetch(`/math?expression=${exp}`)
+
+let data = await res.json()
+
+document.getElementById("result").innerText = data.result
+document.getElementById("explanation").innerText = data.explanation
+
+}
+
+</script>
+
+</body>
+</html>
