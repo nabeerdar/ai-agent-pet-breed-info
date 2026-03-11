@@ -1,7 +1,5 @@
 ## Application Interface
 
-![Pet Breed Explorer](images/homepage.png)
-
 <img src="images/homepage.png" width="800">
 
 ## Pet Breed AI Explorer
